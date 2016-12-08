@@ -1,0 +1,10 @@
+{
+  "name": "JavaliMS",
+  "description": "Esse aplicativa está sendo desenvolvida para a Emprapa para controle de Javalis no Mato Gosso do Sul",
+  "launch_path": "/index.html",
+  "icons": {
+    "128": "/img/logo.png"
+  },
+  "default_locale": "en",
+  "type": "privileged"
+}
