@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+        <meta charset="utf-8">
+        <title>Reverse Geocoding</title>
+        <style>
+            html, body {
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            #map {
+                width: 80%;
+                height: 80%;
+            }
+            #floating-panel {
+                position: absolute;
+                top: 10px;
+                left: 25%;
+                z-index: 5;
+                background-color: #fff;
+                padding: 5px;
+                border: 1px solid #999;
+                text-align: center;
+                font-family: 'Roboto','sans-serif';
+                line-height: 30px;
+                padding-left: 10px;
+            }
+
+        </style>
+        <style>
+            #floating-panel {
+                position: absolute;
+                top: 5px;
+                left: 50%;
+                margin-left: -180px;
+                width: 350px;
+                z-index: 5;
+                background-color: #fff;
+                padding: 5px;
+                border: 1px solid #999;
+            }
+            #latlng {
+                width: 225px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="floating-panel">
+            <input id="latlng" type="text" value="-18.485572299999998,-54.753114999999994">
+            <input id="submit" type="button" value="Reverse Geocode">
+        </div>
+
+        <label id = "coordenadas">Coordenadas</label>
+        <button onclick="getLocalizacao()">Pegar Coordenadas</button>
+        <script>
+            var x = document.getElementById("coordenadas");
+            function getLocalizacao() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(showPosition);
+                } else {
+                    x.innerHTML = "Geolocation is not supported by this browser.";
+                }
+            }
+            function showPosition(position) {
+                x.innerHTML = "Latitude: " + position.coords.latitude +
+                        "<br>Longitude: " + position.coords.longitude;
+            }
+
+        </script>
+    </body>
+</html>
