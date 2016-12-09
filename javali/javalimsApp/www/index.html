@@ -45,6 +45,15 @@
                 -webkit-font-feature-settings: 'liga';
                 -webkit-font-smoothing: antialiased;
             }
+            .mapa{
+                background-color: white;
+                width: 100%;  
+                height: 480px;
+            }
+            #map {
+                width: 100%;
+                height: 80%;
+            }
         </style>
 
     </head>
@@ -92,9 +101,11 @@
                     <a href="tela_login.html" class="modal-action modal-close btn btn-primary">Login</a>
                 </div>
             </div>
-            <div class="row card-panel col s12 center-align form-inline">
-                <label id = "coordenadas">Coordenadas</label>
-                <button onclick="getLocalizacao()">Pegar Coordenadas</button>
+            <div class="mapa">
+                <label id = "coordenadas">Coordenadas</label><br>
+                <button class="btn"  onclick="getLocalizacao()">Pegar Localização</button>
+                <input class="btn" id="submit" type="button" value="Marcar no Mapa">
+                <div id="map"></div>
             </div>
         </div>
         <script type="text/javascript" src="js/jquery-2.1.3.min.js"></script>
@@ -102,7 +113,7 @@
 
         <script>
                     $('.button-collapse').sideNav({
-                        menuWidth: 3240,
+                        menuWidth: 240,
                         // Default is 240
                         edge: 'left', // Choose the horizontal origin
                         closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
@@ -116,21 +127,60 @@
 
         </script>
         <script>
-            var x = document.getElementById("coordenadas");
-            function getLocalizacao() {
+            var xx = document.getElementById("coordenadas");
+            var x = 0;
+            var y = 0;
+            window.onload= function getLocalizacao() {
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(showPosition);
                 } else {
-                    x.innerHTML = "Geolocation is not supported by this browser.";
+                    xx.innerHTML = "Geolocation is not supported by this browser.";
                 }
             }
             function showPosition(position) {
-                x.innerHTML = "Latitude: " + position.coords.latitude +
+                xx.innerHTML = "Latitude: " + position.coords.latitude +
                         "<br>Longitude: " + position.coords.longitude;
+                x = position.coords.latitude;
+                y = position.coords.longitude;
+                initMap();
             }
 
-        </script>
+            function initMap() {
+                var map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 15,
+                    center: {lat: x, lng: y}
+                });
+                var geocoder = new google.maps.Geocoder;
+                var infowindow = new google.maps.InfoWindow;
 
+                document.getElementById('submit').addEventListener('click', function () {
+                    geocodeLatLng(geocoder, map, infowindow);
+                });
+            }
+            function geocodeLatLng(geocoder, map, infowindow) {
+                var latlng = {lat: x, lng: y};
+                geocoder.geocode({'location': latlng}, function (results, status) {
+                    if (status === google.maps.GeocoderStatus.OK) {
+                        if (results[1]) {
+                            map.setZoom(15);
+                            var marker = new google.maps.Marker({
+                                position: latlng,
+                                map: map
+                            });
+                            infowindow.setContent(results[1].formatted_address);
+                            infowindow.open(map, marker);
+                        } else {
+                            window.alert('No results found');
+                        }
+                    } else {
+                        window.alert('Geocoder failed due to: ' + status);
+                    }
+                }
+                );
+            }
+        </script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyASbBnu9NjJ5HB4OD8un7QHbiFg3XUAiBQ&callback=initMap"
+        async defer></script>
 
     </body>
 </html>
