@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" type="text/css" href="css/styles.css">
+        <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="css/bootstrap-theme.css" rel="stylesheet" media="screen">
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="css/bootstrap.css" rel="stylesheet" media="screen">
+        <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
+        <meta charset="utf-8">
+        <!-- No need to insert the following style tag if you are place the bellow url
+            <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
+
+        <style>
+            body{
+                width:100%;
+                height:100%;
+            }
+            nav-wrapper{
+                height:5px;
+            }
+            row{
+                height:70%;
+            }
+            @font-face {
+                font-family: 'Material Icons';
+                font-style: normal;
+                font-weight: 400;
+                src: local('Material Icons'), local('MaterialIcons-Regular'), url(fonts/materialfont.woff2) format('woff2');
+            }
+            .material-icons {
+                font-family: 'Material Icons';
+                font-weight: normal;
+                font-style: normal;
+                font-size: 15px;
+                line-height: 1;
+                letter-spacing: normal;
+                text-transform: none;
+                display: inline-block;
+                white-space: nowrap;
+                word-wrap: normal;
+                direction: ltr;
+                -webkit-font-feature-settings: 'liga';
+                -webkit-font-smoothing: antialiased;
+            }
+        </style>
+
+    </head>
+
+    <body>
+        <nav>
+            <div class="nav-wrapper" style="height: 50px">
+                <a  href="#" data-activates="mobile-demo" class="button-collapse"><i id="menu" class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="#"><img class="responsive-img circle" src="img/icon_user.png"> Visitante</a></li>
+                    <li><a href="tela_login.html">Login</a></li>
+                    <li><a href="index.html">Mapa</a></li>
+                    <li><a class="dropdown" href="tela_registrar_animal.html">Registrar um animal</a></li>
+                    <li><a href="#">Configurações</a></li>
+                    <li><a href="#">Sobre</a></li>
+                </ul>
+                <ul class="side-nav" id="mobile-demo">
+                    <li><span><img class="responsive-img circle" src="img/icon_user.png"> &nbsp;&nbsp;&nbsp;&nbsp;<b>Visitante</b></span></li>
+                    <li><a class="aa" href="tela_login.html">Login</a></li>
+                    <li><a href="index.html">Mapa</a></li>
+                    <li><a class="dropdown" href="tela_registrar_animal.html">Registrar um animal</a></li>
+                    <li><a href="#">Configurações</a></li>
+                    <li><a href="#">Sobre</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div class="container-fluid">
+            <div class="row card-panel col s12 center-align form-inline">
+                <h1>Criar uma conta</h1>
+                <div class="input-field col s12 m12 l12 form-group">
+                    <input placeholder="Digite seu nome" id="primeiro_nome" type="text" class="validate form-control" length="25">
+                    <label for="primeiro_nome">Nome</label>
+                </div>
+                <div class="input-field col s12 m12 l12 form-group">
+                    <input placeholder="Digite seu sobrenome" id="sobrenome" type="text" class="validate form-control" length="100">
+                    <label for="sobrenome">Sobrenome</label>
+                </div>
+                <div class="input-field col s12 m12 l12 form-group">
+                    <input placeholder="Digite seu email" id="email" type="email" class="validate form-control" length="100">
+                    <label for="email">Email</label>
+                </div>
+                <div class="input-field col s12 m12 l12">
+                    <input placeholder="Digite seu numero" id="phone" type="number" class="validate form-control" length="100">
+                    <label for="phone">Telefone</label>
+                </div>
+                <div class="input-field col s12 m12 l12">
+                    <input placeholder="Digite sua senha" id="senha" type="password" class="validate form-control" length="8">
+                    <label for="senha">Senha</label>
+                </div>
+                <div class="input-field col s12 m12 l12">
+                    <input placeholder="Repita sua senha" id="senha_confirma" type="password" class="validate form-control" length="8">
+                    <label for="senha_confirma">Confirme sua senha</label>
+                </div>
+                <div class="form-group col s12 m12 l12 ">
+                    <label class="left">Tipo de Conta</label>
+                    <select id="nivel_conta" class="dropdown-menu-right form-control">
+                        <option>Contribuidor</option>
+                        <option>Caçador</option>
+                        <option>Administrador</option>
+                        <option>Fiscal da Embrapa</option>
+                    </select>
+                </div>
+                <div>
+                    <a id="btn_salvar" type="button" onclick="criarConta()" class="bt btn btn-cadastro waves-effect waves-teal btn">Cadastrar</a>
+                    <a id="btn_cancelar" type="button" href="index.html" class="btn btn-cadastro waves-effect btn">Cancelar</a>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="js/jquery-2.1.3.min.js"></script>
+        <script type="text/javascript" src="js/materialize.min.js"></script>
+
+        <script>
+                        $('.button-collapse').sideNav({
+                            menuWidth: 300,
+                            // Default is 240
+                            edge: 'left', // Choose the horizontal origin
+                            closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+                            draggable: true // Choose whether you can drag to open on touch screens
+                        }
+                        );
+        </script>
+
+    </body>
+</html>
