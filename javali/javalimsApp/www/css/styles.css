@@ -1,90 +1,114 @@
-iframe{
-  height:100%
+iframe{ 
+    height:100%
 }
 p{
-  text-align:left
+    text-align:left
 }
 body {
-  width:100%
-  height:100%
-  padding-top: 0px;
-  padding-bottom:0px;
+    width:100%;
+    height: 100%;
+    padding-top: 0px;
+    padding-bottom:0px;
 }
-
+#label{
+    font-size: 15px;
+}
+#map {
+    width: 100%;
+    height: 80%;
+}
 .starter-template {
-  padding: 40px 15px;
-  text-align: center;
-  alignment-adjust:center;
+    padding: 40px 15px;
+    text-align: center;
+    alignment-adjust:center;
 }
 span i{
-  padding-bottom:15px
+    padding-bottom:15px
 }
 .nav-wrapper{
-  background-color:#03A9F4;
-  text-align:center;
-  color:Black;
+    background-color:#03A9F4;
+    text-align:center;
+    color:Black;
 }
 .nav-wrapper label{
-  font-size:25px;
-  color:Black;
-  padding-top:-10px;
-  margin-bottom:20px;
+    font-size:25px;
+    color:Black;
+    padding-top:-10px;
+    margin-bottom:20px;
 }
 #mobile-demo{
-  background-color:#03A9F4;
+    background-color:#03A9F4;
 }
 #mobile-demo ul li:hover{
-  text-outline:none;
+    text-outline:none;
 }
 nav div label{
-  padding-top:15px;
-  padding-bottom:15px;
+    padding-top:15px;
+    padding-bottom:15px;
 }
 nav div span{
-  padding-bottom:15px;
-  padding-top:-10px;
+    padding-bottom:15px;
+    padding-top:-10px;
 }
 li span{
-  color:Black;
+    color:Black;
 }
 ul li{
-  text-align:justify;
+    text-align:justify;
 }
 #mobile-demo li:hover{
-  background-color:#1098D7;
+    background-color:#1098D7;
 }
 li a:hover{
-  color: White;
-  text-decoration: none;
- }
- .bt{
-   margin:10px;
-   background-color:#1098D7;
-   text-decoration:none;
- }
- .btx{
-   color:Black;
-   margin:10px;
-   background-color: White;
-   text-decoration: none;
- }
+    color: White;
+    text-decoration: none;
+}
+.bt{
+    margin:10px;
+    background-color:#1098D7;
+    text-decoration:none;
+}
+.btx{
+    color:Black;
+    margin:10px;
+    background-color: White;
+    text-decoration: none;
+}
 .btx:hover{
-	 text-decoration:none;
-	 background-color:White;
-   }
+    text-decoration:none;
+    background-color:White;
+}
 .btn-cadastro{
- color:Black
- background-color:#1098D7;
- margin-top:20px;
- text-transform:none;
+    color:Black;
+    background-color:#1098D7;
+    margin-top:20px;
+    text-transform:none;
 }
 .btn-cadastro:hover{
- background-color:#1098D7;
- margin-top:20px;
- text-transform:none;
+    background-color:#1098D7;
+    margin-top:20px;
+    text-transform:none;
 }
 #btn_cancelar{
-  background-color:WhiteSmoke;
-  color:Black;
-  margin-left:10px;
+    background-color:WhiteSmoke;
+    color:Black;
+    margin-left:10px;
+}
+input[type="text"]{
+    font-size: initial;
+}
+input[type="email"]{
+    font-size: initial;
+}
+input[type="tel"]{
+    font-size: initial;
+}
+input[type="password"]{
+    font-size: initial;
+}
+input[type="number"]{
+    font-size: initial;
+}
+label{
+    font-size: initial;
 }

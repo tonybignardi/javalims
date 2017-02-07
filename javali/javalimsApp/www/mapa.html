@@ -1,67 +1,190 @@
-  <!DOCTYPE html>
- <html>
-   <head>
-     <title>Geolocation</title>
-     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-     <meta charset="utf-8">
-     <style>
-       /* Always set the map height explicitly to define the size of the div
-        * element that contains the map.  */
-       #map {
-         height: 100%;
-       }
-       /* Optional: Makes the sample page fill the window.  */
-       html, body {
-         height: 100%;
-         margin: 0;
-         padding: 0;
-       }
-     </style>
-   </head>
-   <body>
-     <div id="map"></div>
-     <script>
-       // Note: This example requires that you consent to location sharing when
-       // prompted by your browser.  If you see the error "The Geolocation service
-       // failed.", it means you probably did not give permission for the browser to
-       // locate you.
-
-       function initMap() {
-         var map = new google.maps.Map(document.getElementById('map'), {
-           center: {lat: -34.397, lng: 150.644},
-           zoom:    8
-         });
-         var infoWindow = new google.maps.InfoWindow({map: map});
-
-         // Try HTML5 geolocation.
-         if (navigator.geolocation) {
-           navigator.geolocation.getCurrentPosition(function(position) {
-             var pos = {
-               lat: position.coords.latitude,
-               lng: position.coords.longitude
-             };
-
-             infoWindow.setPosition(pos);
-             infoWindow.setContent('Location found.');
-             map.setCenter(pos);
-           }, function() {
-             handleLocationError(true, infoWindow, map.getCenter());
-           });
-         } else {
-           // Browser doesn't support Geolocation
-           handleLocationError(false, infoWindow, map.getCenter());
-         }
-       }
-
-       function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-         infoWindow.setPosition(pos);
-         infoWindow.setContent(browserHasGeolocation ?
-                               'Error: The Geolocation service failed.'  :
-                               'Error: Your browser doesn\'t support geolocation.');
-       }
-     </script>
-     <script async defer
-     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyASbBnu9NjJ5HB4OD8un7QHbiFg3XUAiBQ&callback=initMap">
-     </script>
-   </body>
- </html>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width, height=device-height">
+        <meta charset="utf-8">
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="http://code.google.com/apis/maps/documentation/javascript/examples/default.css" rel="stylesheet" type="text/css">
+        <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection">
+        <link href="css/bootstrap.css" rel="stylesheet" media="screen">
+        <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="css/bootstrap-theme.css" rel="stylesheet" media="screen">
+        <link rel="stylesheet" type="text/css" href="css/styles.css">
+        <script type="text/javascript" src="js/jquery-2.1.3.min.js"></script>
+        <style>
+            body{
+                width:100%;
+                height:100%;
+            }
+            nav-wrapper{
+                height:5px;
+            }
+            row{
+                height:100%;
+            }
+            @font-face {
+                font-family: 'Material Icons';
+                font-style: normal;
+                font-weight: 400;
+                src: local('Material Icons'), local('MaterialIcons-Regular'), url(fonts/materialfont.woff2) format('woff2');
+            }
+            .material-icons {
+                font-family: 'Material Icons';
+                font-weight: normal;
+                font-style: normal;
+                font-size: 15px;
+                line-height: 1;
+                letter-spacing: normal;
+                text-transform: none;
+                display: inline-block;
+                white-space: nowrap;
+                word-wrap: normal;
+                direction: ltr;
+                -webkit-font-feature-settings: 'liga';
+                -webkit-font-smoothing: antialiased;
+            }
+            #username1{
+                font-size: 100%;
+            }
+            #username2{
+                font-size: 100%;
+            }
+            .mapa{
+                background-color: white;
+                width: 100%;  
+                height: 480px;
+            }
+        </style>
+    </head>
+    <body>
+        <input id="email" name="usuarioEmail" type="hidden" class="validate form-control"style="visibility: hidden;" placeholder="Digite seu email" length="100">
+        <input  id="senha" name="usuarioSenha" type="hidden"  class="validate form-control" style="visibility: hidden;" placeholder="Digite sua senha" min="8" length="100">
+        <div  class="container-fluid" style="margin:0px;padding: 0px;width: 100%;height: 100%;">
+            <div id="modal1" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog">
+                <div  class="modal-dialog  modal-sm">
+                    <div class="modal-content">
+                        <h4>Bem vindo ao app JavaliMS</h4>
+                        <p>Esse aplicativo foi desenvolvido pela Embrapa em parceria
+                            com o Instituto Federal de Mato Grosso do sul Campus 
+                            Coxim direcionado a pessoas que desejam encontrar 
+                            informações sobre a localização e o mapeamento de 
+                            animais da região do estado de Mato Grosso do Sul.
+                            Você também pode nos ajudar a melhorar nossos dados 
+                            para que eles fiquem mais preciso, crie sua conta e 
+                            seja um contribuidor ou caso seja um caçador escolha
+                            o tipo de conta "Caçador". Clique em "Login" para 
+                            Entrar caso ja possua uma Conta Criada ou para criar
+                            sua conta agora caso não possua ainda. Caso não queire
+                            fazer isto agora clique em "Agora não".
+                        </p>
+                        <div class="modal-footer">
+                            <a href="#" onclick="hide()" class="modal-action modal-close btn btn-toolbar btx">Agora não</a>
+                            <a href="tela_login.html" class="modal-action modal-close btn btn-primary">Login</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mapa" style="width: 100%;margin: 0px;padding: 0px;border: 0px;height: 100%;">
+                <div id="map" style="width: 100%;height: 100%;background: whitesmoke;padding: 0px;margin: 0px;"></div>
+                <div class="fixed-action-btn" style="right: initial;margin-left: 10px;">
+                    <a style="background-color:#03A9F4;margin-bottom: 10px;" href="tela_registrar_animal.html" id="confirmar" class="btn-floating btn-large waves-effect waves-light modal-trigger">
+                        <i class="material-icons">add</i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <script>
+        </script>
+        <script>
+            var atual = false, x = 0, y = 0;
+            $("#modal1").show();
+            $(document).ready(function () {
+                if (!$.cookie("modal-exibido")) {
+                    $('#modal1').modal('show');
+                }
+            });
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                xx.innerHTML = "Geolocation is not supported by this browser.";
+            }
+            function showPosition(position) {
+                x = position.coords.latitude;
+                y = position.coords.longitude;
+                alert(x + ',' + y);
+            }
+            var xx = document.getElementById("coordenadas");
+            window.onload = function () {
+                onDeviceReady();
+            };
+            function onDeviceReady() {
+                var map = new
+                        GoogleMap();
+                map.initialize();
+            }
+            function GoogleMap() {
+                this.initialize = function () {
+                    var map = showMap();
+                };
+                var showMap = function () {
+                    var mapOptions = {
+                        zoom: 10,
+                        center: new plugin.google.maps.LatLng(x, y),
+                        mapTypeId: plugin.google.maps.MapTypeId.ROADMAP
+                    };
+                    var map = new plugin.google.maps.Map(document.getElementById("map"), mapOptions);
+                    return map;
+                };
+            }
+            function initMap() {
+                var map = new plugin.google.maps.Map(document.getElementById('map'), {
+                    zoom: 16,
+                    center: {lat: x, lng: y}
+                });
+                var geocoder = new google.maps.Geocoder;
+                var infowindow = new google.maps.InfoWindow;
+                document.getElementById('submit').addEventListener('click', function () {
+                    geocodeLatLng(geocoder, map, infowindow);
+                });
+            }
+            function geocodeLatLng(geocoder, map, infowindow) {
+                var latlng = {lat: x, lng: y};
+                geocoder.geocode({'location': latlng}, function (results, status) {
+                    if (status === google.maps.GeocoderStatus.OK) {
+                        if (results[1]) {
+                            map.setZoom(16);
+                            if (atual == false) {
+                                var marker = new plugin.google.maps.Marker({
+                                    position: latlng,
+                                    map: map
+                                });
+                                atual = true;
+                            }
+                            else {
+                                var marker = new plugin.google.maps.Marker({
+                                    position: latlng,
+                                    map: map,
+                                    icon: 'green-dot.png'
+                                });
+                            }
+                            infowindow.setContent(results[1].formatted_address);
+                            infowindow.open(map, marker);
+                        } else {
+                            window.alert('No results found');
+                        }
+                    } else {
+                        window.alert('Geocoder failed due to: ' + status);
+                    }
+                }
+                );
+            }
+        </script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyASbBnu9NjJ5HB4OD8un7QHbiFg3XUAiBQ" type="text/javascript"></script>
+        <script type="text/javascript" src="script.js"></script>
+        <script type="text/javascript" src="js/script.js"></script>
+        <script type="text/javascript" src="js/cordova.js"></script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/materialize.min.js"></script>
+        <script type="text/javascript" src="js/googlemaps-cdv-plugin.js"></script>
+    </body>
+</html>

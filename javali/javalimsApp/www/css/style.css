@@ -1,0 +1,19 @@
+//Linha branca em baixo da tab (aba)
+.tabs .indicator{
+    background-color:white;
+}
+//Fundo do App
+body{
+    background-color: #F2F2F2;
+}
+.topo-fixo{
+    position:fixed;
+    top: 0;
+    width: 100%;
+    z-index: 2;
+}
+.section {
+    padding-top: 125px;
+}
+
+

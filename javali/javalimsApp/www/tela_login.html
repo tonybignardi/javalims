@@ -10,9 +10,6 @@
         <link href="css/bootstrap.css" rel="stylesheet" media="screen">
         <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
         <meta charset="utf-8">
-        <!-- No need to insert the following style tag if you are place the bellow url
-            <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
-
         <style>
             body{
                 width:100%;
@@ -30,6 +27,25 @@
                 font-weight: 400;
                 src: local('Material Icons'), local('MaterialIcons-Regular'), url(fonts/materialfont.woff2) format('woff2');
             }
+            #username1{
+                font-size: 100%;
+            }
+            #username2{
+                font-size: 100%;
+            }
+            #sign_out{
+                border:none;
+                background-color: #03A9F4;
+                width: 100%;
+                padding: 0px;
+                margin: 0px;
+            }
+            input[type="submit"]{
+                background: none;
+                border: none;
+                font-style: normal;
+                padding: 0px;
+            }
             .material-icons {
                 font-family: 'Material Icons';
                 font-weight: normal;
@@ -46,61 +62,130 @@
                 -webkit-font-smoothing: antialiased;
             }
         </style>
-
     </head>
-
     <body>
-        <nav>
-            <div class="nav-wrapper" style="height: 50px">
-                <a  href="#" data-activates="mobile-demo" class="button-collapse"><i id="menu" class="material-icons">menu</i></a>
-                <ul class="right hide-on-med-and-down">
-                    <li><a href="#"><img class="responsive-img circle" src="img/icon_user.png"> Visitante</a></li>
-                    <li><a href="tela_login.html">Login</a></li>
-                    <li><a href="index.html">Mapa</a></li>
-                    <li><a class="dropdown" href="tela_registrar_animal.html">Registrar um animal</a></li>
-                    <li><a href="#">Configurações</a></li>
-                    <li><a href="#">Sobre</a></li>
-                </ul>
-                <ul class="side-nav" id="mobile-demo">
-                    <li><span><img class="responsive-img circle" src="img/icon_user.png"> &nbsp;&nbsp;&nbsp;&nbsp;<b>Visitante</b></span></li>
-                    <li><a class="aa" href="tela_login.html">Login</a></li>
-                    <li><a href="index.html">Mapa</a></li>
-                    <li><a class="dropdown" href="tela_registrar_animal.html">Registrar um animal</a></li>
-                    <li><a href="#">Configurações</a></li>
-                    <li><a href="#">Sobre</a></li>
-                </ul>
-            </div>
-        </nav>
-        <div class="container-fluid">
-            <div class="row card-panel col s12 center-align form-inline">
-                <h1>Criar uma conta</h1>
-                <div class="input-field col s12 m12 l12 form-group">
-                    <input placeholder="Digite seu email" id="email" type="email" class="validate form-control" length="100"/>
-                    <label for="email">Email</label>
-                </div>
-                <div class="input-field col s12 m12 l12">
-                    <input placeholder="Digite sua senha" id="senha" type="password" class="validate form-control" length="8"/>
-                    <label for="senha">Senha</label>
-                </div>
-                <div class="row">
-                    <a id="btn_salvar" type="button" onclick="login()" class="bt btn btn-cadastro waves-effect btn">Entrar</a>
-                    <a id="btn_cancelar" type="button" href="tela_criar_conta.html" class="btn btn-cadastro waves-effect btn">Criar conta</a>
+        <form id="logarUsuario" method="post">
+            <div class="container-fluid"  style="margin-top:10px" id="campoMsg">
+                <div style="margin-top: 35px;" class="row col s12 center-align form-inline">
+                    <div class="input-field col s12 m12 l12 form-group" id="campoEmail">
+                        <input placeholder="Digite seu email" id="email" type="email" class="validate form-control" length="100" name="usuarioEmail">
+                        <label id="label" for="email">Email</label>
+                    </div>
+                    <div class="input-field col s12 m12 l12"  id="campoSenha">
+                        <input min="8" placeholder="Digite sua senha" id="senha" type="password" name="usuarioSenha" class="validate form-control" length="100">
+                        <label id="label" for="senha">Senha</label>
+                    </div>
+                    <div class="row" style="" id="campo_botoes">
+                    </div>
                 </div>
             </div>
-        </div>
+        </form>
+        <script src="js/jquery.mobile-1.4.0-rc.1.js" type="text/javascript"></script>
         <script type="text/javascript" src="js/jquery-2.1.3.min.js"></script>
         <script type="text/javascript" src="js/materialize.min.js"></script>
-
+        <script type="text/javascript" src="script.js"></script>
+        <script type="text/javascript" src="js/script.js"></script>
         <script>
-                            $('.button-collapse').sideNav({
-                                menuWidth: 300,
-                                // Default is 240
-                                edge: 'left', // Choose the horizontal origin
-                                closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
-                                draggable: true // Choose whether you can drag to open on touch screens
+            $(window).load(function () {
+                try {
+                    json = JSON.parse(localStorage.getItem('user'));
+                    btnSair = '<a id="btn_sair" href="" onclick="sign_out()" class="btn btn-cadastro waves-effect">Sair</a>';
+                    btnSalvar = '<input id = "btn_salvar" name = "salvar" type = "submit" style = "background-color: #03A9F4;" onclick="login()" class ="bt btn btn-cadastro waves-effect" value = "Entrar">';
+                    btnCriarConta = '<a id = "btn_cancelar" href = "tela_criar_conta.html" class = "btn btn-cadastro waves-effect" > Criar conta </a>';
+                    if (json.login == true) {
+                        document.getElementById('email').value = json.email;
+                        document.getElementById('senha').value = json.senha;
+                        $("#campoEmail").css("display", "none");
+                        $("#campoSenha").css("display", "none");
+                        $("#campo_botoes").html(btnSair + btnCriarConta);
+                        msg = $("#campoMsg").html();
+                        $("#campoMsg").html('<p>Você esta logado como <b>' + json.email + '</b><br>Clique em Sair para logar com outra conta ou crie uma nova conta</p>' + msg);
+                    } else {
+                        $("#campoEmail").css("display", "block");
+                        $("#campoSenha").css("display", "block");
+                        $("#campo_botoes").html(btnSalvar + btnCriarConta);
+                        $("#btn_salvar").css("margin", "10px");
+                        $("#btn_salvar").css("background-color", "#1098D7");
+                        $("#btn_salvar").css("text-decoration", "none");
+                        $("#btn_salvar").css("color", "Black");
+                        $("#btn_salvar").css("background-color", "#1098D7");
+                        $("#btn_salvar").css("margin-top", "35px");
+                        $("#btn_salvar").css("text-transform", "none");
+                        $("#btn_salvar").css("padding", "10px");
+                        $("#btn_salvar").css("padding-left", "15px");
+                        $("#btn_salvar").css("padding-right", "15px");
+                    }
+                } catch (e) {
+                    $("#campoEmail").css("display", "block");
+                    $("#campoSenha").css("display", "block");
+                    $("#campo_botoes").html(btnSalvar + btnCriarConta);
+                    $("#btn_salvar").css("margin", "10px");
+                    $("#btn_salvar").css("background-color", "#1098D7");
+                    $("#btn_salvar").css("text-decoration", "none");
+                    $("#btn_salvar").css("color", "Black");
+                    $("#btn_salvar").css("background-color", "#1098D7");
+                    $("#btn_salvar").css("margin-top", "35px");
+                    $("#btn_salvar").css("text-transform", "none");
+                    $("#btn_salvar").css("padding", "10px");
+                    $("#btn_salvar").css("padding-left", "15px");
+                    $("#btn_salvar").css("padding-right", "15px");
+                }
+            });
+            $('#loginSignOut').toggle();
+            $("#loginSignOut").click(function (e) {
+                $('#label').html('Visitante');
+                $('#loginSignOut').toggle();
+                $('#login').toggle();
+            });
+            $("#logarUsuario").submit(function (e) {
+                e.preventDefault();
+                var url = "";
+                try {
+                    json = JSON.parse(localStorage.getItem('servidor'));
+                    url = json.ip;
+                } catch (e) {
+                    url = 'localhost';
+                }
+                $.ajax({
+                    type: "POST",
+                    url: "http://" + url + "/JavaliMS/usuario_login.php",
+                    data:
+                            $("#logarUsuario").serialize(),
+                    async: false,
+                    dataType: "json",
+                    success: function (json) {
+                        if (json.login == true) {
+                            alert("Logado com Sucesso");
+//                            window.location.reload();
+                            var user = {'nome': json.username, 'email': json.email, 'senha': document.getElementById("senha").value, 'login': json.login};
+                            localStorage.setItem('user', JSON.stringify(user));
+                            var db = window.openDatabase('javalimsbd', '1.0', 'Banco de Dados', 200000);
+                            db.transaction(inserirBD, errorInserirCB, sucessInserirCB);
+                            function inserirBD(tx) {
+                                tx.executeSql('DELETE FROM usuario where email = "' + json.email + '"');
+                                tx.executeSql('DELETE FROM usuario where email = "email@company.com"');
+                                tx.executeSql('INSERT INTO usuario(email, senha ,login) VALUES ("' + json.email + '", "' + document.getElementById("senha").value + '", "' + json.login + '")');
                             }
-                            );
+                            function errorInserirCB(err) {
+                                if (err.code != 0) {
+                                    alert('Error processing SQL ' + err.code);
+                                }
+                            }
+                            function sucessInserirCB() {
+                            }
+                            open('index.html');
+                        } else if (json.login == false) {
+                            alert(json.msg);
+                        }
+                        else if (json.msg == undefined) {
+                            alert('Verifque os dados e tente novamente.');
+                        }
+                        Funcoes.hideLoad();
+                    }, error: function (xhr, e, t) {
+                        alert('Email e/ou senha incorreto(s)!');
+                    }
+                });
+            });
         </script>
-
     </body>
 </html>
